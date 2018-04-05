@@ -16,6 +16,10 @@ public abstract class FileWatchService<T extends WatchedFile>  {
     private final File path;
     private final Pattern pattern;
 
+    public List<T> getAllFiles() {
+        return new ArrayList<>(files);
+    }
+
     protected abstract T createFileEntity(File file);
 
     @Scheduled(fixedDelayString = "${watchedservice.timeout:30000}")
