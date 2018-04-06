@@ -15,14 +15,22 @@ public abstract class FileWatchService<T extends WatchedFile>  {
     private final Set<T> files = new HashSet<>();
     private final File path;
     private final Pattern pattern;
+    private final Map<String, T> data = new HashMap<>();
 
     public List<T> getAllFiles() {
         return new ArrayList<>(files);
     }
 
+
     protected abstract T createFileEntity(File file);
 
-    @Scheduled(fixedDelayString = "${watchedservice.timeout:30000}")
+    public T get(String key) {
+        if (this.data.containsKey(key) && this.data.get(key).isExists())
+            return this.data.get(key);
+        return null;
+    }
+
+    @Scheduled(fixedDelayString = "${filewatchservice.timeout:30000}")
     @PostConstruct
     public void update() throws FileNotFoundException {
         if (!this.path.exists())
@@ -46,13 +54,18 @@ public abstract class FileWatchService<T extends WatchedFile>  {
             T entry = createFileEntity(file);
             if (files.contains(entry))
                 continue;
-            files.add(entry);
-        }
 
-        for (WatchedFile file : new ArrayList<>(files)) {
-            file.watch();
-            if (!file.isExists())
-                this.files.remove(file);
+            files.add(entry);
+            if (matcher.groupCount() > 1) {
+                this.data.put(entry.setKey(matcher.group(1)), entry);
+            }
+        }
+        for (WatchedFile entry : new ArrayList<>(files)) {
+            entry.watch();
+            if (!entry.isExists()) {
+                this.files.remove(entry);
+                this.data.remove(entry.getKey());
+            }
         }
     }
 

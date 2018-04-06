@@ -9,7 +9,7 @@ import java.io.File;
 public class TestFileService extends FileWatchService<TestFile> {
 
     public TestFileService() {
-        super("./examples/", ".*(\\.js|\\.txt)$");
+        super("./examples/", "(.*)(\\.js|\\.txt)$");
     }
 
     @Override

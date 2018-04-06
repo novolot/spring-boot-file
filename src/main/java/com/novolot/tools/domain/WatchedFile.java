@@ -1,19 +1,53 @@
 package com.novolot.tools.domain;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public abstract class WatchedFile {
 
     final File file;
     long lastModified = -1;
+    String key = null;
+
+    String fileString = null;
+
+    public String setKey(String key) {
+        this.key = key;
+        return key;
+    }
+
+    public String getKey() {
+        return this.key;
+    }
+
+
 
     public abstract void update();
     public abstract void delete();
 
     public File getFile() {return file;}
 
+
+    public String getString(String encoding) {
+        if (fileString != null) return fileString;
+        try {
+            byte[] data = Files.readAllBytes(this.file.toPath());
+            fileString = new String(data, encoding);
+        }catch (IOException ie) {
+            fileString = null;
+        }
+        return fileString;
+    }
+
+    public String getString() {
+        return getString("UTF-8");
+    }
+
+
     public boolean isChanged() {
-        return this.file.lastModified() != lastModified;
+
+        return new File(this.file.getAbsolutePath()).lastModified() != lastModified;
     }
 
 
@@ -29,6 +63,7 @@ public abstract class WatchedFile {
 
         if (this.isChanged()) {
             this.update();
+            this.fileString = null;
             this.lastModified = this.file.lastModified();
         }
     }
