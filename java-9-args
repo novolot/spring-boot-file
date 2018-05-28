@@ -1,0 +1,6 @@
+--add-modules ALL-DEFAULT
+--illegal-access=deny
+--add-opens java.base/java.util=ALL-UNNAMED
+--add-opens java.base/java.lang.reflect=ALL-UNNAMED
+--add-opens java.base/java.text=ALL-UNNAMED
+--add-opens java.desktop/java.beans=ALL-UNNAMED

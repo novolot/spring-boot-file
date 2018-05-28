@@ -1,15 +1,14 @@
 package com.novolot.tools;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -19,25 +18,23 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-@Import(TestApplication.class)
-@ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = {TestApplication.class})
+@ActiveProfiles({"test"})
 @TestPropertySource(properties = "debug=true")
 public class FileTest {
 
     @Autowired
     TestFileService service;
 
-    @Before
-    @After
+    @BeforeEach
+    @AfterEach
     public void before() throws IOException {
         if (Files.exists(Paths.get("./examples/4.txt")))
             Files.delete(Paths.get("./examples/4.txt"));
     }
-
 
     @Test
     public void testLoad() {
