@@ -11,7 +11,7 @@ if [ $# -lt 2 ] ; then
         exit -2
     fi
     echo "Usage: ${0} <release_version> <development_version>"
-    echo "Example: ${0} ${CURRENT_V:-2.0.0} ${NEXT_V:-2.0.1}-SNAPSHOT"
+    echo -e "Example: \n${0} ${CURRENT_V:-1.0.0} ${NEXT_V:-1.0.1}-SNAPSHOT"
     exit -1
 fi
 
