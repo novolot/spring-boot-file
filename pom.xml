@@ -4,7 +4,7 @@
 
     <groupId>com.novolot.tools</groupId>
     <artifactId>spring-boot-file</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Spring File</name>
@@ -91,7 +91,7 @@
     <scm>
         <connection>scm:git:git@github.com:novolot/tools-spring-boot-file.git</connection>
         <developerConnection>scm:git:git@github.com:novolot/tools-spring-boot-file.git</developerConnection>
-        <tag>release-1.0.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <build>
