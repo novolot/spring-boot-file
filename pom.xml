@@ -29,7 +29,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.9</java.version>
+        <java.version>11</java.version>
         <!-- TODO: cleanup -->
         <junit-jupiter.version>5.2.0</junit-jupiter.version>
         <junit-platform.version>1.2.0</junit-platform.version>
@@ -108,7 +108,7 @@
                         <!-- The "excludeTags" property will be specified from command line -->
                         <excludeTags>NONEMPTY_PLACEHOLDER,${excludeTags}</excludeTags>
                     </properties>
-                    <argLine>@java-9-args</argLine>
+                    <argLine>@java-args</argLine>
                 </configuration>
                 <dependencies>
                     <dependency>
